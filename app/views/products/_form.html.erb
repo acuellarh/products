@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-lg-8 offset-lg-2">
           <%= form_for (product) do |f| %>
-            <div class="form-group">
+            <div class="form-group">              
               <%= f.text_field :name, class: "form-control input-lg",
               placeholder: "Ingrese el nombre del Producto"%>
             </div>
@@ -15,7 +15,17 @@
               <%= f.text_field :price, class:"form-control input-lg",
               placeholder: "Ingrese el precio del Producto "%>
             </div>
-            <!-- category form -->
+            <!-- category form -->   
+            <div><h3>Asignar categorías</h3></div>           
+            <div class="form-group pt-0">
+              <%= f.collection_check_boxes(:category_ids, Category.all, :id, :name) do |b| %>
+              <br>
+              <%= b.label class:"label-checkbox" do %>
+                <%=b.check_box%>
+                <%=b.text%>
+              <%end%>
+            <% end %>
+            </div>
             <!-- /category form -->
             <div>
               <%= f.submit form_title , class: "btn btn-primary btn-lg btn-block" %>

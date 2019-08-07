@@ -10,35 +10,38 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-lg-8 offset-lg-2">
-      <% @products.each do |product|%>
+    <div class="col-lg-8 offset-lg-2">      
       <table class="table table-hover">
         <thead>
           <tr>
-            <th>Nombre</th>
-            <th>Precio</th>
-            <th>Categorías</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Categorías</th>
             <th></th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>
-              <div><%= product.name %></div>
-            </td>         
-            <td>
-              <div><%= product.price %></div>
-            </td>         
-            <td>
-              <div><%= product.category %></div>            
-            </td>          
-            <td>
-              <div>Link editar   Link eliminar</div>                   
-            </td>          
-          </tr>
+        <tbody> 
+          <% @products.each do |product|%>           
+            <tr>              
+              <td>
+                <div><%= product.name %></div>
+              </td>         
+              <td>
+                <div><%= number_with_precision (number_to_currency product.price, precision: 0) %></div>
+              </td>         
+              <td>
+                <div> <%= product.categories.map(&:name).sort.join(", ") %> </div>            
+              </td>          
+              <td>
+                <div>
+                  <%= link_to  "editar", edit_product_path(product) %> 
+                  <%= link_to  " eliminar", product_path(product), method: :delete, data: { confirm: 'Esta seguro de eliminar el Producto ?' }%>
+                </div>                 
+              </td>                   
+            </tr>
+          <% end %> 
         </tbody>
-      </table>
-      <% end %>
+      </table>     
     </div>
   </div>
 </div>
